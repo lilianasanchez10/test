@@ -1,0 +1,73 @@
+---
+title: "Regression"
+author: "Liliana"
+date: "13 February 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Regression example
+
+This is a simple, bivariate regression example.
+
+
+```{r}
+2 + 2
+```
+
+
+```{r}
+library(languageR)
+library(tidyverse)
+str(spanish)
+```
+
+##comment
+
+```{r, my model}
+my_data <-spanish %>%
+select(.,x = X14461gll, y = X14473gll) %>%
+  filter(.,y<0.06, x<0.75)
+
+my_data %>%
+  ggplot(.,aes(x = x, y = y))+
+geom_point()+
+  geom_smooth(method ='lm')
+```
+#
+```{r}
+my_fit <- lm(y ~ x, data = my_data)
+summary(my_fit)
+```
+
+```{r}
+confint(my_fit)
+```
+The data were someting. (
+Slope: `r coefficients(my_fit) [2]` 
+```{r}
+coefficients(my_fit)
+```
+```{r}
+hist(residuals(my_fit))
+```
+```{r}
+str(spanish)
+```
+new stuff
+```{r}
+my_data_2 <-spanish %>%
+select(.,x = X14474gll, y = X14460gll) %>%
+  
+my_data_2 %>%
+  ggplot(.,aes(x = x, y = y))+
+geom_point()+
+  geom_smooth(method ='lm')
+```
+```{r}
+my_fit_2 <- lm(y ~ x, data = my_data_2)
+summary(my_fit)
+```
